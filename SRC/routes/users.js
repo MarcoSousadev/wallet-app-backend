@@ -73,4 +73,22 @@ router.put('/', async (req, res) => {
   }
 })
 
+router.get('/', async (req, res) => {
+  try {
+    const { email } = req.query
+
+    if (!email || email.length < 5 || !email.includes('@')) {
+      return res.status(400).json({ error: 'e-mail is invalid' })
+    }
+    const query = usersQueries.findByEmail(email)
+    const userExists = await db.query(query)
+    if (!userExists.rows[0]) {
+      return res.status(404).send({ error: 'User does exists' })
+    }
+    return res.status(200).json(userExists.rows[0])
+  } catch (error) {
+    return res.status(500).json(error)
+  }
+})
+
 module.exports = router
