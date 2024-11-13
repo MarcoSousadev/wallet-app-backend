@@ -1,14 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../db')
-
-const findByEmail = email => {
-  return (query = {
-    name: 'fetch-category',
-    text: 'SELECT * FROM users WHERE email = $1',
-    values: [email]
-  })
-}
+const usersQueries = require('../Queries/users')
 
 router.post('/', async (req, res) => {
   try {
@@ -22,7 +15,7 @@ router.post('/', async (req, res) => {
     if (email.lenght < 5 || !email.includes('@')) {
       return res.status(400).json({ error: 'e-mail is invalid' })
     }
-    const query = findByEmail(email)
+    const query = usersQueries.findByEmail(email)
 
     const alredyExists = await db.query(query)
 
@@ -58,7 +51,7 @@ router.put('/', async (req, res) => {
     if (oldEmail.lenght < 5 || !email.includes('@')) {
       return res.status(400).json({ error: 'e-mail is invalid' })
     }
-    const query = findByEmail(oldEmail)
+    const query = usersQueries.findByEmail(oldEmail)
 
     const alredyExists = await db.query(query)
 
