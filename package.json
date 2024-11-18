@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node SRC/index.js",
-    "start:dev": "nodemon SRC/index.js",
-    "config:init": "node SRC/config/init.js"
+    "start": "node src/index.js",
+    "start:dev": "nodemon src/index.js",
+    "config:init": "node src/config/init.js"
   },
   "author": "Marco Sousa",
   "license": "ISC",
